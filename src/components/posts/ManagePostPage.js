@@ -25,8 +25,10 @@ function ManagePost({
                 .catch(error => {
                     console.log(`Loading posts failed: ${error}`);
                 });
+        } else {
+            setPost({ ...props.post });
         }
-    }, []);
+    }, [ props.post ]);
 
     function handleChange(event) {
         const { name, value } = event.target;

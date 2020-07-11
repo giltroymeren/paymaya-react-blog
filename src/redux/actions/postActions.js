@@ -36,7 +36,7 @@ export function loadPosts() {
 }
 
 export function savePost(post) {
-    return function(dispatch, getState) {
+    return function(dispatch) {
         return postApi.savePost(post)
             .then(savedPost => {
                 post.id
