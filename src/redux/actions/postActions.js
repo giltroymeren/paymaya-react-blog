@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import * as postApi from '../../api/postApi';
-import { beginApiCall } from '../actions/utilActions';
+import { beginApiCall, apiCallError } from '../actions/utilActions';
 
 function loadPostsSuccess(posts) {
     return {
@@ -32,6 +32,7 @@ export function loadPosts() {
             })
             .catch((error) => {
                 console.error("Error occurred in loading posts");
+                dispatch(apiCallError());
                 throw error;
             });
     }
@@ -48,6 +49,7 @@ export function savePost(post) {
             })
             .catch((error) => {
                 console.error("Error occurred in saving post");
+                dispatch(apiCallError());
                 throw error;
             });
     }

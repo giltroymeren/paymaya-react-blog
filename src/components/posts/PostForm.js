@@ -8,7 +8,7 @@ const PostForm = ({
         post,
         onSave,
         onChange,
-        saving = false,
+        isSaving = false,
         errors = {}
     }) => {
     return (
@@ -54,9 +54,9 @@ const PostForm = ({
             <button
                 type="submit"
                 name="submit"
-                disabled={saving}
+                disabled={isSaving}
                 className="btn btn-primary">
-                { saving ? "Saving..." : "Save" }
+                { isSaving ? "Saving..." : "Save" }
             </button>
         </form>
     );
@@ -67,7 +67,7 @@ PostForm.propTypes = {
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    saving: PropTypes.bool
+    isSaving: PropTypes.bool
 };
 
 export default PostForm;

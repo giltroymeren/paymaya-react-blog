@@ -19,6 +19,7 @@ function ManagePostPage({
     ...props }) {
     const [ post, setPost ] = useState({ ...props.post });
     const [ errors, setErrors ] = useState({ });
+    const [ isSaving, setIsSaving ] = useState(false);
 
     useEffect(() => {
         if(posts.length === 0) {
@@ -40,12 +41,31 @@ function ManagePostPage({
         }))
     }
 
+    function isPostValid() {
+        const { title, content } = post;
+        const errors = {};
+
+        if(!title) errors.title = "Title is required";
+        if(!content) errors.content = "Content is required";
+
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    }
+
     function handleSave(event) {
         event.preventDefault();
+
+        if(!isPostValid()) return;
+
+        setIsSaving(true);
         savePost(post)
             .then(() => {
                 history.push("/posts");
-            });
+            })
+            .catch(error => {
+                setIsSaving(false);
+                setErrors({ onSave: error.message });
+            })
     }
 
     return (
@@ -55,6 +75,7 @@ function ManagePostPage({
                 post={post}
                 onChange={handleChange}
                 onSave={handleSave}
+                isSaving={isSaving}
                 errors={errors} />
     );
 }
