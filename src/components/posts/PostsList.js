@@ -20,8 +20,12 @@ const PostsList = ({ posts }) => {
                                 <td>
                                     <Link to={`/post/${post.slug}`}>{post.title}</Link>
                                 </td>
-                                <td>{post.content}</td>
-                                <td>{post.dateCreated}</td>
+                                <td>
+                                    {`${post.content.substring(0, 100)}...`}
+                                </td>
+                                <td>
+                                    <code>{new Date(parseInt(post.dateCreated)).toLocaleString()}</code>
+                                </td>
                             </tr>
                         );
                     })
