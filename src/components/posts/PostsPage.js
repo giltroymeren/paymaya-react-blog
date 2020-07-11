@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 import * as postActions from '../../redux/actions/postActions';
+import PostsList from './PostsList';
 
 class PostsPage extends React.Component {
     componentDidMount() {
@@ -17,12 +18,7 @@ class PostsPage extends React.Component {
         return(
             <>
                 <h2>Your Posts</h2>
-
-                {
-                    this.props.posts.map(post => {
-                        return <div key={post.id}>{post.title}</div>
-                    })
-                }
+                <PostsList posts={this.props.posts} />
             </>
         );
     }
