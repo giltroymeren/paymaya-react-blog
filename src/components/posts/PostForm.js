@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import TextInput from "../common/TextInput";
 import TextAreaInput from "../common/TextAreaInput";
+import { Link } from 'react-router-dom';
 
 const PostForm = ({
         post,
@@ -14,6 +15,9 @@ const PostForm = ({
     return (
         <form onSubmit={onSave}>
             <h2>{post.id ? "Edit" : "Add"} post</h2>
+            <p>
+                <Link to="/posts" className="badge badge-primary">Back to list</Link>
+            </p>
             {
                 errors.onSave && (
                     <div className="alert alert-danger" role="alert">
