@@ -10,7 +10,7 @@ const EMPTY_POST = {
     content: ""
 }
 
-function ManagePost({
+function ManagePostPage({
     posts,
     loadPosts,
     savePost,
@@ -58,7 +58,7 @@ function ManagePost({
     );
 }
 
-ManagePost.propTypes = {
+ManagePostPage.propTypes = {
     post: PropTypes.object.isRequired,
     posts: PropTypes.array.isRequired,
     loadPosts: PropTypes.func.isRequired,
@@ -86,4 +86,4 @@ const mapDispatchToProps = {
     savePost
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManagePost);
+export default connect(mapStateToProps, mapDispatchToProps)(ManagePostPage);
