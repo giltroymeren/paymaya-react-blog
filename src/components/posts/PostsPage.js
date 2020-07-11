@@ -8,10 +8,12 @@ import PostsList from './PostsList';
 
 class PostsPage extends React.Component {
     componentDidMount() {
-        this.props.actions.loadPosts()
-            .catch(error => {
-                console.log(`Loading posts failed: ${error}`);
-            });
+        if(this.props.posts.lentgh === 0) {
+            this.props.actions.loadPosts()
+                .catch(error => {
+                    console.log(`Loading posts failed: ${error}`);
+                });
+        }
     }
 
     render() {
