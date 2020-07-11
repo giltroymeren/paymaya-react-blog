@@ -1,1 +1,2 @@
 export const CREATE_POST = "CREATE_POST";
+export const LOAD_POSTS_SUCCESS = "LOAD_POSTS_SUCCESS";
