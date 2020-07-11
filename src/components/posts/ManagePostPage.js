@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { loadPosts, savePost } from '../../redux/actions/postActions';
 import PostForm from './PostForm';
+import Loader from '../common/Loader';
 
 const EMPTY_POST = {
     title: "",
@@ -48,13 +49,13 @@ function ManagePostPage({
     }
 
     return (
-        <>
-            <PostForm
+        posts.length === 0
+            ? <Loader />
+            : <PostForm
                 post={post}
                 onChange={handleChange}
                 onSave={handleSave}
                 errors={errors} />
-        </>
     );
 }
 
