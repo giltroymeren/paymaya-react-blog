@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import * as postActions from '../../redux/actions/postActions';
 
 class PostsPage extends React.Component {
     state = {
@@ -21,7 +25,7 @@ class PostsPage extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        alert(this.state.post.title);
+        this.props.dispatch(postActions.createPost(this.state.post));
     }
 
     render() {
@@ -59,4 +63,14 @@ class PostsPage extends React.Component {
     }
 }
 
-export default PostsPage;
+PostsPage.propTypes = {
+    dispatch: PropTypes.func.irsRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        posts: state.posts
+    }
+}
+
+export default connect(mapStateToProps)(PostsPage);
