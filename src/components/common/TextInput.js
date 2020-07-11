@@ -32,6 +32,7 @@ TextInput.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.string,
     error: PropTypes.string
 };
 
