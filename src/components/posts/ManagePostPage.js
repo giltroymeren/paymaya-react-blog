@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 
-import * as postActions from '../../redux/actions/postActions';
+import { loadPosts, savePost } from '../../redux/actions/postActions';
 import PostForm from './PostForm';
 
 const MOCK_POST = {
-    id: 12345,
     title: "My Title",
-    content: "This is my content",
-    slug: "my-title",
-    dateCreated: Date.now()
+    content: "This is my content"
 }
 
-function ManagePost({ posts, actions, ...props }) {
+function ManagePost({
+    posts,
+    loadPosts,
+    savePost,
+    ...props }) {
     const [ post, setPost ] = useState({ ...props.post });
     const [ errors, setErrors ] = useState({ });
 
     useEffect(() => {
         if(posts.length === 0) {
-            actions.loadPosts()
+            loadPosts()
                 .catch(error => {
                     console.log(`Loading posts failed: ${error}`);
                 });
@@ -36,11 +36,17 @@ function ManagePost({ posts, actions, ...props }) {
         }))
     }
 
+    function handleSave(event) {
+        event.preventDefault();
+        savePost(post);
+    }
+
     return (
         <>
             <PostForm
                 post={post}
                 onChange={handleChange}
+                onSave={handleSave}
                 errors={errors} />
         </>
     );
@@ -49,19 +55,20 @@ function ManagePost({ posts, actions, ...props }) {
 ManagePost.propTypes = {
     post: PropTypes.object.isRequired,
     posts: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    loadPosts: PropTypes.func.isRequired,
+    savePost: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
     return {
+        post: MOCK_POST,
         posts: state.posts
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(postActions, dispatch)
-    }
+const mapDispatchToProps = {
+    loadPosts,
+    savePost
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManagePost);

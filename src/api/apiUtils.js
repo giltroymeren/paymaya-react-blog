@@ -8,7 +8,7 @@ export async function handleResponse(response) {
         throw new Error(error);
     }
 
-    throw new Error("There is a problem with the netork connection.");
+    throw new Error("There is a problem with the network connection.");
 }
 
 export function handleError(error) {

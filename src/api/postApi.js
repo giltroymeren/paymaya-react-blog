@@ -9,5 +9,11 @@ export function getPosts() {
 }
 
 export function savePost(post) {
-    console.log(`Saving post ${post.title}`);
+    return fetch(BASE_URL + (post.id || ""), {
+        method: post.id ? "PUT" : "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(post)
+    })
+    .then(handleResponse)
+    .catch(handleError);
 }

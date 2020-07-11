@@ -44,7 +44,7 @@ const PostForm = ({
                     <TextInput
                         name="dateCreated"
                         label="Date created"
-                        value={post.dateCreated}
+                        value={"" + post.dateCreated}
                         onChange={onChange}
                         disabled={"disabled"}
                     />
