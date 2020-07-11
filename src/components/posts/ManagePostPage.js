@@ -14,6 +14,7 @@ function ManagePost({
     posts,
     loadPosts,
     savePost,
+    history,
     ...props }) {
     const [ post, setPost ] = useState({ ...props.post });
     const [ errors, setErrors ] = useState({ });
@@ -38,7 +39,10 @@ function ManagePost({
 
     function handleSave(event) {
         event.preventDefault();
-        savePost(post);
+        savePost(post)
+            .then(() => {
+                history.push("/posts");
+            });
     }
 
     return (
@@ -56,7 +60,8 @@ ManagePost.propTypes = {
     post: PropTypes.object.isRequired,
     posts: PropTypes.array.isRequired,
     loadPosts: PropTypes.func.isRequired,
-    savePost: PropTypes.func.isRequired
+    savePost: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
