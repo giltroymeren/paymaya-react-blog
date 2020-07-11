@@ -67,7 +67,7 @@ ManagePostPage.propTypes = {
 }
 // TODO: move to reducers
 export function getPostBySlug(posts, slug) {
-    return posts.find(post => post.slug === slug) || null;
+    return posts.find(post => post.slug === slug) || EMPTY_POST;
 }
 
 function mapStateToProps(state, ownProps) {
