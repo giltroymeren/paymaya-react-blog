@@ -17,3 +17,11 @@ export function savePost(post) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function deletePost(id) {
+    return fetch(BASE_URL + id, {
+        method: "DELETE"
+    })
+    .then(handleResponse)
+    .catch(handleError);
+}

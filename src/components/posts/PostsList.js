@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const PostsList = ({ posts }) => {
+const PostsList = ({ posts, onDelete }) => {
     return (
         <table className="table">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Content</th>
-                    <th>Date Created</th>
+                    <th>Created</th>
+                    <th />
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,13 @@ const PostsList = ({ posts }) => {
                                 <td>
                                     <code>{new Date(parseInt(post.dateCreated)).toLocaleString()}</code>
                                 </td>
+                                <td>
+                                    <button
+                                        className="btn btn-outline-danger"
+                                        onClick={() => onDelete(post)}>
+                                        &#215;
+                                    </button>
+                                </td>
                             </tr>
                         );
                     })
@@ -36,7 +44,8 @@ const PostsList = ({ posts }) => {
 }
 
 PostsList.propTypes = {
-    posts: PropTypes.array.isRequired
+    posts: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
 
 export default PostsList;

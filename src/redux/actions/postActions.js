@@ -23,6 +23,13 @@ function updatePostSuccess(post) {
     }
 }
 
+function deletePostOptimistic(post) {
+    return {
+        type: types.DELETE_POST_OPTIMISTIC,
+        post
+    }
+}
+
 export function loadPosts() {
     return function(dispatch) {
         dispatch(beginApiCall());
@@ -52,5 +59,12 @@ export function savePost(post) {
                 dispatch(apiCallError());
                 throw error;
             });
+    }
+}
+
+export function deletePost(post) {
+    return function(dispatch) {
+        dispatch(deletePostOptimistic(post));
+        return postApi.deletePost(post.id);
     }
 }

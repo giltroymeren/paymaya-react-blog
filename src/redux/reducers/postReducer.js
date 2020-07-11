@@ -11,6 +11,8 @@ export default function postReducer(state = initialState.posts, action) {
             );
         case types.LOAD_POSTS_SUCCESS:
             return action.posts;
+        case types.DELETE_POST_OPTIMISTIC:
+            return state.filter(post => post.id !== action.post.id);
         default:
             return state;
     }

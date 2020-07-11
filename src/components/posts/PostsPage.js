@@ -18,6 +18,16 @@ function PostsPage({ posts, actions, loading }) {
         }
     }, []);
 
+    const handleDelete = (post) => {
+        actions.deletePost(post)
+            .then(() => {
+                console.log(`Deleted post "${post.title}".`);
+            })
+            .catch(error => {
+                alert(`Deleting post "${post.title}" failed. ${error.message}`);
+            })
+    }
+
     return (
         <>
             <h2>Your Posts</h2>
@@ -27,7 +37,9 @@ function PostsPage({ posts, actions, loading }) {
             {
                 loading > 0
                     ? <Loader />
-                    : <PostsList posts={posts} />
+                    : <PostsList
+                        posts={posts}
+                        onDelete={handleDelete} />
             }
         </>
     );
