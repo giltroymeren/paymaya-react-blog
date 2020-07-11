@@ -15,7 +15,8 @@ const MOCK_POST = {
 }
 
 function ManagePost({ posts, actions, ...props }) {
-    const [ post, SetPost ] = useState({ ...props.post });
+    const [ post, setPost ] = useState({ ...props.post });
+    const [ errors, setErrors ] = useState({ });
 
     useEffect(() => {
         if(posts.length === 0) {
@@ -28,8 +29,7 @@ function ManagePost({ posts, actions, ...props }) {
 
     return (
         <>
-            <h2>Manage Post</h2>
-            <PostForm post={post} />
+            <PostForm post={post} errors={errors} />
         </>
     );
 }
