@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
-export default function postReducer(state = [], action) {
+export default function postReducer(state = initialState.posts, action) {
     switch(action.type) {
         case types.CREATE_POST:
             return [ ...state, { ...action.post } ];
