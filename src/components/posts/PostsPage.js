@@ -6,6 +6,13 @@ import { bindActionCreators } from 'redux';
 import * as postActions from '../../redux/actions/postActions';
 
 class PostsPage extends React.Component {
+    componentDidMount() {
+        this.props.actions.loadPosts()
+            .catch(error => {
+                console.log(`Loading posts failed: ${error}`);
+            });
+    }
+
     render() {
         return(
             <>
@@ -13,7 +20,7 @@ class PostsPage extends React.Component {
 
                 {
                     this.props.posts.map(post => {
-                        return <div key={post.title}>{post.title}</div>
+                        return <div key={post.id}>{post.title}</div>
                     })
                 }
             </>
