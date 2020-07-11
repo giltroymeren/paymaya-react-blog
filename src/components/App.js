@@ -1,5 +1,5 @@
 import React from 'react';
 
-const App = () => <p>Hello World</p>;
+const App = () => <h1>PayMaya React App</h1>;
 
 export default App;
