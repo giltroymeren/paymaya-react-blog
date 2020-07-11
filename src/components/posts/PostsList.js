@@ -11,6 +11,7 @@ const PostsList = ({ posts, onDelete }) => {
                     <th>Content</th>
                     <th>Created</th>
                     <th />
+                    <th />
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,9 @@ const PostsList = ({ posts, onDelete }) => {
                                 </td>
                                 <td>
                                     <code>{new Date(parseInt(post.dateCreated)).toLocaleString()}</code>
+                                </td>
+                                <td>
+                                    <Link to={`/post/edit/${post.slug}`}>EDIT</Link>
                                 </td>
                                 <td>
                                     <button

@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TextAreaInput = ({ name, label, placeholder, value, onChange, error }) => {
+const TextAreaInput = ({
+    name,
+    label,
+    placeholder,
+    value,
+    onChange,
+    disabled,
+    error }) => {
     let wrapperClass = "form-group";
     if (error && error.length > 0) {
         wrapperClass += " has-error";
@@ -17,6 +24,7 @@ const TextAreaInput = ({ name, label, placeholder, value, onChange, error }) => 
                     className="form-control"
                     placeholder={placeholder}
                     value={value}
+                    disabled={disabled}
                     onChange={onChange}></textarea>
                 { error && <div className="alert alert-danger">{error}</div> }
             </div>
@@ -30,6 +38,7 @@ TextAreaInput.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.string.isRequired,
     error: PropTypes.string
 };
 

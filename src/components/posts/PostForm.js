@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import TextInput from "../common/TextInput";
 import TextAreaInput from "../common/TextAreaInput";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
+const STRING_DISABLED = "disabled";
 
 const PostForm = ({
         post,
         onSave,
         onChange,
         isSaving = false,
+        location,
         errors = {}
     }) => {
+    const [ isView, setIsView ] = useState(false);
+
+    useEffect(() => {
+        if(!location.pathname.includes("/edit/") && post.id) {
+            setIsView(true);
+        }
+    })
+
     return (
         <form onSubmit={onSave}>
-            <h2>{post.id ? "Edit" : "Add"} post</h2>
+            <h2>{!isView ? (post.id ? "Edit post" : "Add post") : ""}</h2>
             <p>
                 <Link to="/posts" className="badge badge-primary">Back to list</Link>
             </p>
@@ -31,6 +42,7 @@ const PostForm = ({
                 placeholder="What did you do today?"
                 value={post.title}
                 onChange={onChange}
+                disabled={isView ? STRING_DISABLED : ""}
                 error={errors.title}
             />
 
@@ -40,6 +52,7 @@ const PostForm = ({
                 placeholder="Describe what you did today."
                 value={post.content}
                 onChange={onChange}
+                disabled={isView ? STRING_DISABLED : ""}
                 error={errors.content}
             />
 
@@ -50,18 +63,24 @@ const PostForm = ({
                         label="Date created"
                         value={"" + post.dateCreated}
                         onChange={onChange}
-                        disabled={"disabled"}
+                        disabled={STRING_DISABLED}
                     />
                     : ''
             }
 
-            <button
-                type="submit"
-                name="submit"
-                disabled={isSaving}
-                className="btn btn-primary">
-                { isSaving ? "Saving..." : "Save" }
-            </button>
+            {
+                isView
+                ? ""
+                : (
+                    <button
+                        type="submit"
+                        name="submit"
+                        disabled={isSaving}
+                        className="btn btn-primary">
+                        { isSaving ? "Saving..." : "Save" }
+                    </button>
+                )
+            }
         </form>
     );
  };
@@ -71,7 +90,8 @@ PostForm.propTypes = {
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    isSaving: PropTypes.bool
+    isSaving: PropTypes.bool,
+    location: PropTypes.object.isRequired
 };
 
-export default PostForm;
+export default withRouter(PostForm);

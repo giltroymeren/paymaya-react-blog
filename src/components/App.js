@@ -10,6 +10,7 @@ const App = () => {
             <h1>PayMaya React App</h1>
             <Switch>
                 <Route path="/posts" component={PostsPage} />
+                <Route path="/post/edit/:slug" component={ManagePostPage} />
                 <Route path="/post/:slug" component={ManagePostPage} />
                 <Route path="/post" component={ManagePostPage} />
             </Switch>
