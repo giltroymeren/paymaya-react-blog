@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { loadPosts, savePost } from '../../redux/actions/postActions';
 import PostForm from './PostForm';
 
-const MOCK_POST = {
-    title: "My Title",
-    content: "This is my content"
+const EMPTY_POST = {
+    title: "",
+    content: ""
 }
 
 function ManagePost({
@@ -63,10 +63,18 @@ ManagePost.propTypes = {
     savePost: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired
 }
+// TODO: move to reducers
+export function getPostBySlug(posts, slug) {
+    return posts.find(post => post.slug === slug) || null;
+}
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+    const slug = ownProps.match.params.slug;
+    const post = (slug && state.posts.length > 0)
+        ? getPostBySlug(state.posts, slug) : EMPTY_POST;
+
     return {
-        post: MOCK_POST,
+        post,
         posts: state.posts
     };
 }
