@@ -55,19 +55,7 @@ const PostForm = ({
                 disabled={isView ? STRING_DISABLED : ""}
                 error={errors.content}
             />
-
-            {
-                post.id ?
-                    <TextInput
-                        name="dateCreated"
-                        label="Date created"
-                        value={"" + post.dateCreated}
-                        onChange={onChange}
-                        disabled={STRING_DISABLED}
-                    />
-                    : ''
-            }
-
+            
             {
                 isView
                 ? ""
