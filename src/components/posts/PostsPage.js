@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 import * as postActions from '../../redux/actions/postActions';
 import PostsList from './PostsList';
@@ -20,6 +21,9 @@ function PostsPage({ posts, actions, loading }) {
     return (
         <>
             <h2>Your Posts</h2>
+            <p>
+                <Link to="/post" className="badge badge-primary">Add Post</Link>
+            </p>
             {
                 loading > 0
                     ? <Loader />
