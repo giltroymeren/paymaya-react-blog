@@ -37,8 +37,8 @@ class PostsPage extends React.Component {
                     type="text"
                     placeholder="What are you up to today?"
                     className="form-control"
-                    onChange={this.handleChange}
                     value={this.state.post.title}
+                    onChange={this.handleChange}
                     required
                 />
                 {/*<textarea
@@ -54,23 +54,30 @@ class PostsPage extends React.Component {
                     disabled
                 />*/}
                 <input
-                    type="Submit"
+                    type="submit"
                     value="Add"
                     className="btn btn-primary"
                 />
+
+                {
+                    this.props.posts.map(post => {
+                        return <div key={post.title}>{post.title}</div>
+                    })
+                }
             </form>
         );
     }
 }
 
 PostsPage.propTypes = {
-    dispatch: PropTypes.func.irsRequired
+    posts: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
     return {
         posts: state.posts
-    }
+    };
 }
 
 export default connect(mapStateToProps)(PostsPage);
