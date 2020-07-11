@@ -27,9 +27,21 @@ function ManagePost({ posts, actions, ...props }) {
         }
     }, []);
 
+    function handleChange(event) {
+        const { name, value } = event.target;
+
+        setPost(prevPost => ({
+            ...prevPost,
+            [name]: value
+        }))
+    }
+
     return (
         <>
-            <PostForm post={post} errors={errors} />
+            <PostForm
+                post={post}
+                onChange={handleChange}
+                errors={errors} />
         </>
     );
 }
