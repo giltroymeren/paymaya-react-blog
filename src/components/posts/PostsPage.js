@@ -5,8 +5,9 @@ import { bindActionCreators } from 'redux';
 
 import * as postActions from '../../redux/actions/postActions';
 import PostsList from './PostsList';
+import Loader from '../common/Loader';
 
-function PostsPage({ posts, actions}) {
+function PostsPage({ posts, actions, loading }) {
     useEffect(() => {
         if(posts.length === 0) {
             actions.loadPosts()
@@ -19,19 +20,25 @@ function PostsPage({ posts, actions}) {
     return (
         <>
             <h2>Your Posts</h2>
-            <PostsList posts={posts} />
+            {
+                loading > 0
+                    ? <Loader />
+                    : <PostsList posts={posts} />
+            }
         </>
     );
 }
 
 PostsPage.propTypes = {
     posts: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired
 }
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts
+        posts: state.posts,
+        loading: (state.apiCallsInProgress > 0)
     };
 }
 

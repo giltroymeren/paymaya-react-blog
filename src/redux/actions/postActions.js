@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import * as postApi from '../../api/postApi';
+import { beginApiCall } from '../actions/utilActions';
 
 function loadPostsSuccess(posts) {
     return {
@@ -24,6 +25,7 @@ function updatePostSuccess(post) {
 
 export function loadPosts() {
     return function(dispatch) {
+        dispatch(beginApiCall());
         return postApi.getPosts()
             .then(posts => {
                 dispatch(loadPostsSuccess(posts));
@@ -37,6 +39,7 @@ export function loadPosts() {
 
 export function savePost(post) {
     return function(dispatch) {
+        dispatch(beginApiCall());
         return postApi.savePost(post)
             .then(savedPost => {
                 post.id
