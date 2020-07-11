@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 
 import * as postActions from '../../redux/actions/postActions';
 
@@ -25,7 +26,7 @@ class PostsPage extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.dispatch(postActions.createPost(this.state.post));
+        this.props.actions.createPost(this.state.post);
     }
 
     render() {
@@ -71,7 +72,7 @@ class PostsPage extends React.Component {
 
 PostsPage.propTypes = {
     posts: PropTypes.array.isRequired,
-    dispatch: PropTypes.func.isRequired
+    actions: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
@@ -80,4 +81,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(PostsPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(postActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsPage);
