@@ -1,27 +1,25 @@
-import React from 'react';
+import React , { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 import * as postActions from '../../redux/actions/postActions';
 
-class ManagePost extends React.Component {
-    componentDidMount() {
-        if(this.props.posts.length === 0) {
-            this.props.actions.loadPosts()
+function ManagePost({ posts, actions }) {
+    useEffect(() => {
+        if(posts.length === 0) {
+            actions.loadPosts()
                 .catch(error => {
                     console.log(`Loading posts failed: ${error}`);
                 });
         }
-    }
+    }, []);
 
-    render() {
-        return(
-            <>
-                <h2>Manage Post</h2>
-            </>
-        );
-    }
+    return (
+        <>
+            <h2>Manage Post</h2>
+        </>
+    );
 }
 
 ManagePost.propTypes = {
