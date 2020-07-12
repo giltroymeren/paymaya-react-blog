@@ -68,3 +68,16 @@ export function deletePost(post) {
         return postApi.deletePost(post.id);
     }
 }
+
+const searchByKeywordSuccess = (keyword) => {
+    return {
+        type: types.SEARCH_BY_KEYWORD_SUCCESS,
+        keyword
+    }
+}
+
+export function searchByKeyword(keyword) {
+    return function(dispatch) {
+        dispatch(searchByKeywordSuccess(keyword));
+    }
+}
