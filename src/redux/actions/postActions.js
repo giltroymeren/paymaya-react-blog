@@ -30,6 +30,13 @@ function deletePostOptimistic(post) {
     }
 }
 
+const searchByKeywordSuccess = (keyword) => {
+    return {
+        type: types.SEARCH_BY_KEYWORD_SUCCESS,
+        keyword
+    }
+}
+
 export function loadPosts() {
     return function(dispatch) {
         dispatch(beginApiCall());
@@ -69,15 +76,13 @@ export function deletePost(post) {
     }
 }
 
-const searchByKeywordSuccess = (keyword) => {
-    return {
-        type: types.SEARCH_BY_KEYWORD_SUCCESS,
-        keyword
-    }
-}
-
 export function searchByKeyword(keyword) {
     return function(dispatch) {
-        dispatch(searchByKeywordSuccess(keyword));
+        if(keyword) {
+            dispatch(searchByKeywordSuccess(keyword));
+        } else {
+            // TODO: implement using state.appliedFilters in postReducer
+            dispatch(loadPosts());
+        }
     }
 }
