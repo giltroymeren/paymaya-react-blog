@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import * as postApi from '../../api/postApi';
-import { beginApiCall, apiCallError } from '../actions/utilActions';
+import { beginApiCall, apiCallError } from './apiCallActions';
 
 function loadPostsSuccess(posts) {
     return {
