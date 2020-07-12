@@ -1,6 +1,11 @@
 import * as types from './actionTypes';
 import * as postApi from '../../api/postApi';
-import { beginApiCall, apiCallError } from '../actions/utilActions';
+import { beginApiCall, apiCallError } from './apiCallActions';
+import {
+    applySearchByKeyword,
+    applySortByTitle,
+    applySortByDate
+} from './filterActions';
 
 function loadPostsSuccess(posts) {
     return {
@@ -66,5 +71,41 @@ export function deletePost(post) {
     return function(dispatch) {
         dispatch(deletePostOptimistic(post));
         return postApi.deletePost(post.id);
+    }
+}
+
+export function performSearchByKeyword(keyword) {
+    return function(dispatch) {
+        dispatch(applySearchByKeyword(keyword));
+
+        if(keyword) {
+            dispatch({
+                type: types.PERFORM_SEARCH_BY_KEYWORD,
+                keyword
+            });
+        } else {
+            // TODO: Fix check of entire state after erase instead of the currently displayed
+            dispatch(loadPosts());
+        }
+    }
+}
+
+export function performSortByTitle(direction) {
+    return function(dispatch) {
+        dispatch(applySortByTitle(direction));
+        dispatch({
+            type: types.PERFORM_SORT_BY_TITLE,
+            direction
+        });
+    }
+}
+
+export function performSortByDate(direction) {
+    return function(dispatch) {
+        dispatch(applySortByDate(direction));
+        dispatch({
+            type: types.PERFORM_SORT_BY_DATE,
+            direction
+        });
     }
 }

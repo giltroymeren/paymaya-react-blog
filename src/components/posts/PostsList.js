@@ -1,49 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PaginationList from 'react-pagination-list';
+
+import './PostsList.css';
 
 const PostsList = ({ posts, onDelete }) => {
     return (
-        <table className="table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Created</th>
-                    <th />
-                    <th />
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    posts.map(post => {
-                        return (
-                            <tr key={post.id}>
-                                <td>
-                                    <Link to={`/post/${post.slug}`}>{post.title}</Link>
-                                </td>
-                                <td>
-                                    {`${post.content.substring(0, 100)}...`}
-                                </td>
-                                <td>
-                                    <code>{new Date(parseInt(post.dateCreated)).toLocaleString()}</code>
-                                </td>
-                                <td>
-                                    <Link to={`/post/edit/${post.slug}`}>EDIT</Link>
-                                </td>
-                                <td>
-                                    <button
-                                        className="btn btn-outline-danger"
-                                        onClick={() => onDelete(post)}>
-                                        &#215;
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })
-                }
-            </tbody>
-        </table>
+        <>
+        { posts.length > 0
+            ? (
+                <PaginationList
+                    data={posts}
+                    pageSize={5}
+                    renderItem={post => (
+                        <div key={post.slug} className="row">
+                            <div className="col">
+                                <Link to={`/post/${post.slug}`}>{post.title}</Link>
+                            </div>
+                            <div className="col-1">
+                                <Link
+                                    to={`/post/edit/${post.slug}`}
+                                    className="btn btn-outline-primary">
+                                    EDIT
+                                </Link>
+                            </div>
+                            <div className="col-2">
+                                <button
+                                    className="btn btn-outline-danger"
+                                    onClick={() => onDelete(post)}>
+                                    DELETE
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                />
+            )
+            : (
+                <div className="alert alert-secondary" role="alert">
+                    No posts available.
+                </div>
+            )}
+        </>
     );
 }
 

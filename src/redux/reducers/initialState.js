@@ -1,4 +1,5 @@
 export default {
     posts: [],
-    apiCallsInProgress: 0
+    apiCallsInProgress: 0,
+    filters: []
 }
