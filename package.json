@@ -29,6 +29,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-react": "^7.20.3",
     "html-webpack-plugin": "^4.3.0",
+    "react-pagination-list": "^1.0.8",
     "redux-immutable-state-invariant": "^2.1.0",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
