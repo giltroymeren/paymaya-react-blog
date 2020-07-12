@@ -1,7 +1,11 @@
 import * as types from './actionTypes';
 import * as postApi from '../../api/postApi';
 import { beginApiCall, apiCallError } from './apiCallActions';
-import { searchByKeyword as applySearchByKeyword } from './filterActions';
+import {
+    applySearchByKeyword,
+    applySortByTitle,
+    applySortByDate
+} from './filterActions';
 
 function loadPostsSuccess(posts) {
     return {
@@ -28,20 +32,6 @@ function deletePostOptimistic(post) {
     return {
         type: types.DELETE_POST_OPTIMISTIC,
         post
-    }
-}
-
-export const sortByTitle = direction => {
-    return {
-        type: types.SORT_BY_TITLE,
-        direction
-    }
-}
-
-export const sortByDate = direction => {
-    return {
-        type: types.SORT_BY_DATE,
-        direction
     }
 }
 
@@ -97,5 +87,25 @@ export function performSearchByKeyword(keyword) {
             // TODO: Fix check of entire state after erase instead of the currently displayed
             dispatch(loadPosts());
         }
+    }
+}
+
+export function performSortByTitle(direction) {
+    return function(dispatch) {
+        dispatch(applySortByTitle(direction));
+        dispatch({
+            type: types.PERFORM_SORT_BY_TITLE,
+            direction
+        });
+    }
+}
+
+export function performSortByDate(direction) {
+    return function(dispatch) {
+        dispatch(applySortByDate(direction));
+        dispatch({
+            type: types.PERFORM_SORT_BY_DATE,
+            direction
+        });
     }
 }

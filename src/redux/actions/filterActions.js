@@ -1,20 +1,20 @@
 import * as types from './actionTypes';
 
-export const sortByTitle = direction => {
+export const applySortByTitle = direction => {
     return {
-        type: types.SORT_BY_TITLE,
+        type: types.APPLY_SORT_BY_TITLE,
         direction
     }
 }
 
-export const sortByDate = direction => {
+export const applySortByDate = direction => {
     return {
-        type: types.SORT_BY_DATE,
+        type: types.APPLY_SORT_BY_DATE,
         direction
     }
 }
 
-export function searchByKeyword(keyword) {
+export function applySearchByKeyword(keyword) {
     return function(dispatch) {
         dispatch({
             type: types.APPLY_SEARCH_BY_KEYWORD,

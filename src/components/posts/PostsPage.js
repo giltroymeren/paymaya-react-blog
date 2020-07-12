@@ -7,8 +7,8 @@ import {
     loadPosts,
     deletePost,
     performSearchByKeyword,
-    sortByTitle,
-    sortByDate
+    performSortByTitle,
+    performSortByDate
 } from '../../redux/actions/postActions';
 import PostsList from './PostsList';
 import Loader from '../common/Loader';
@@ -24,8 +24,8 @@ function PostsPage({
     loadPosts,
     deletePost,
     performSearchByKeyword,
-    sortByTitle,
-    sortByDate,
+    performSortByTitle,
+    performSortByDate,
     loading }) {
     useEffect(() => {
         if(posts.length === 0) {
@@ -57,9 +57,9 @@ function PostsPage({
             DIRECTION_ASC : DIRECTION_DES;
 
         if(sorter.startsWith(FIELD_TITLE)) {
-            sortByTitle(direction);
+            performSortByTitle(direction);
         } else {
-            sortByDate(direction);
+            performSortByDate(direction);
         }
     }
 
@@ -117,8 +117,8 @@ PostsPage.propTypes = {
     loadPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
     performSearchByKeyword: PropTypes.func.isRequired,
-    sortByTitle: PropTypes.func.isRequired,
-    sortByDate: PropTypes.func.isRequired,
+    performSortByTitle: PropTypes.func.isRequired,
+    performSortByDate: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 }
 
@@ -133,8 +133,8 @@ const mapDispatchToProps = {
     loadPosts,
     deletePost,
     performSearchByKeyword: performSearchByKeyword,
-    sortByTitle,
-    sortByDate
+    performSortByTitle,
+    performSortByDate
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsPage);

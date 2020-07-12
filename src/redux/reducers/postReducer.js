@@ -25,7 +25,7 @@ export default function postReducer(state = initialState.posts, action) {
             return state.filter(post => {
                 return post.title.toLowerCase().includes(action.keyword);
             });
-        case types.SORT_BY_TITLE: {
+        case types.PERFORM_SORT_BY_TITLE: {
             const sorted = [ ...state ].sort((a, b) => {
                 const strA = a.title.toLowerCase(), strB = b.title.toLowerCase();
 
@@ -35,7 +35,7 @@ export default function postReducer(state = initialState.posts, action) {
             });
             return sorted;
         }
-        case types.SORT_BY_DATE: {
+        case types.PERFORM_SORT_BY_DATE: {
             const sorted = [ ...state ].sort((a, b) => {
                 return (action.direction === 'asc')
                     ? getSortAscending(a.dateCreated, b.dateCreated)
