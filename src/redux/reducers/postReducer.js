@@ -1,6 +1,13 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
+const getSortAscending = (a, b) => {
+    return (a > b) ? 1 : -1;
+}
+const getSortDescending = (a, b) => {
+    return (a < b) ? 1 : -1;
+}
+
 export default function postReducer(state = initialState.posts, action) {
     switch(action.type) {
         case types.CREATE_POST_SUCCESS:
@@ -21,11 +28,17 @@ export default function postReducer(state = initialState.posts, action) {
             const sorted = [ ...state ].sort((a, b) => {
                 const strA = a.title.toLowerCase(), strB = b.title.toLowerCase();
 
-                if(action.direction === 'asc') {
-                    return (strA > strB) ? 1 : -1;
-                } else {
-                    return (strA > strB) ? -1 : 1;
-                }
+                return (action.direction === 'asc')
+                    ? getSortAscending(strA, strB)
+                    : getSortDescending(strA, strB);
+            });
+            return sorted;
+        }
+        case types.SORT_BY_DATE: {
+            const sorted = [ ...state ].sort((a, b) => {
+                return (action.direction === 'asc')
+                    ? getSortAscending(a.dateCreated, b.dateCreated)
+                    : getSortDescending(a.dateCreated, b.dateCreated);
             });
             return sorted;
         }

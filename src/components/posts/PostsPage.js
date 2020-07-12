@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { loadPosts, deletePost, searchByKeyword, sortByTitle } from '../../redux/actions/postActions';
+import {
+    loadPosts,
+    deletePost,
+    searchByKeyword,
+    sortByTitle,
+    sortByDate
+} from '../../redux/actions/postActions';
 import PostsList from './PostsList';
 import Loader from '../common/Loader';
 
-const STRING_CONST = {
-    "title": "title",
-    "asc": "asc",
-    "des": "des"
-}
+
+const FIELD_TITLE = "title",
+    DIRECTION_ASC = "asc",
+    DIRECTION_DES = "des",
+    DEFAULT_VALUE = "defaultValue";
 
 function PostsPage({
     posts,
@@ -19,6 +25,7 @@ function PostsPage({
     deletePost,
     searchByKeyword,
     sortByTitle,
+    sortByDate,
     loading }) {
     useEffect(() => {
         if(posts.length === 0) {
@@ -46,13 +53,13 @@ function PostsPage({
 
     const handleSortBy = (event) => {
         const sorter = event.target.value;
-        const direction = sorter.endsWith(STRING_CONST.asc) ?
-            STRING_CONST.asc : STRING_CONST.des;
+        const direction = sorter.endsWith(DIRECTION_ASC) ?
+            DIRECTION_ASC : DIRECTION_DES;
 
-        if(sorter.startsWith(STRING_CONST.title)) {
+        if(sorter.startsWith(FIELD_TITLE)) {
             sortByTitle(direction);
         } else {
-            console.log(direction)
+            sortByDate(direction);
         }
     }
 
@@ -70,11 +77,12 @@ function PostsPage({
                             <label htmlFor="sort-by" className="sr-only my-1 mr-2">Sort by</label>
                             <select
                                 id="sort-by"
+                                defaultValue={DEFAULT_VALUE}
                                 className="form-control my-1 mr-2"
                                 onChange={handleSortBy}>
-                                <option value="" disabled>Sort by</option>
-                                <option value="date-asc">Date - Newest to Oldest</option>
-                                <option value="date-des">Date - Oldest to Newest</option>
+                                <option value={DEFAULT_VALUE} disabled>Sort by</option>
+                                <option value="date-des">Date - Newest to Oldest</option>
+                                <option value="date-asc">Date - Oldest to Newest</option>
                                 <option value="title-asc">Title - A-Z</option>
                                 <option value="title-des">Title - Z-A</option>
                             </select>
@@ -110,6 +118,7 @@ PostsPage.propTypes = {
     deletePost: PropTypes.func.isRequired,
     searchByKeyword: PropTypes.func.isRequired,
     sortByTitle: PropTypes.func.isRequired,
+    sortByDate: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 }
 
@@ -126,7 +135,8 @@ const mapDispatchToProps = {
     loadPosts,
     deletePost,
     searchByKeyword,
-    sortByTitle
+    sortByTitle,
+    sortByDate
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsPage);
