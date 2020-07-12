@@ -8,8 +8,6 @@ const PostsList = ({ posts, onDelete }) => {
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Content</th>
-                    <th>Created</th>
                     <th />
                     <th />
                 </tr>
@@ -23,19 +21,17 @@ const PostsList = ({ posts, onDelete }) => {
                                     <Link to={`/post/${post.slug}`}>{post.title}</Link>
                                 </td>
                                 <td>
-                                    {`${post.content.substring(0, 100)}...`}
-                                </td>
-                                <td>
-                                    <code>{new Date(parseInt(post.dateCreated)).toLocaleString()}</code>
-                                </td>
-                                <td>
-                                    <Link to={`/post/edit/${post.slug}`}>EDIT</Link>
+                                    <Link
+                                        to={`/post/edit/${post.slug}`}
+                                        className="btn btn-outline-primary">
+                                        EDIT
+                                    </Link>
                                 </td>
                                 <td>
                                     <button
                                         className="btn btn-outline-danger"
                                         onClick={() => onDelete(post)}>
-                                        &#215;
+                                        DELETE
                                     </button>
                                 </td>
                             </tr>
