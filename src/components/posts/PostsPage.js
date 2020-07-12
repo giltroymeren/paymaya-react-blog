@@ -3,15 +3,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { loadPosts, deletePost, searchByKeyword } from '../../redux/actions/postActions';
+import { loadPosts, deletePost, searchByKeyword, sortByTitle } from '../../redux/actions/postActions';
 import PostsList from './PostsList';
 import Loader from '../common/Loader';
+
+const STRING_CONST = {
+    "title": "title",
+    "asc": "asc",
+    "des": "des"
+}
 
 function PostsPage({
     posts,
     loadPosts,
     deletePost,
     searchByKeyword,
+    sortByTitle,
     loading }) {
     useEffect(() => {
         if(posts.length === 0) {
@@ -32,9 +39,21 @@ function PostsPage({
             })
     }
 
-    const handleSearchChange = (event) => {
+    const handleSearch = (event) => {
         const keyword = event.target.value;
         searchByKeyword(keyword);
+    }
+
+    const handleSortBy = (event) => {
+        const sorter = event.target.value;
+        const direction = sorter.endsWith(STRING_CONST.asc) ?
+            STRING_CONST.asc : STRING_CONST.des;
+
+        if(sorter.startsWith(STRING_CONST.title)) {
+            sortByTitle(direction);
+        } else {
+            console.log(direction)
+        }
     }
 
     return (
@@ -49,12 +68,15 @@ function PostsPage({
                     : <>
                         <div className="form-inline">
                             <label htmlFor="sort-by" className="sr-only my-1 mr-2">Sort by</label>
-                            <select id="sort-by" className="form-control my-1 mr-2">
+                            <select
+                                id="sort-by"
+                                className="form-control my-1 mr-2"
+                                onChange={handleSortBy}>
                                 <option value="" disabled>Sort by</option>
-                                <option>Date - Newest to Oldest</option>
-                                <option>Date - Oldest to Newest</option>
-                                <option>Alphabet - A-Z</option>
-                                <option>Alphabet - Z-A</option>
+                                <option value="date-asc">Date - Newest to Oldest</option>
+                                <option value="date-des">Date - Oldest to Newest</option>
+                                <option value="title-asc">Title - A-Z</option>
+                                <option value="title-des">Title - Z-A</option>
                             </select>
 
                             <label htmlFor="searh-keyword" className="sr-only">Search</label>
@@ -68,7 +90,7 @@ function PostsPage({
                                     type="text"
                                     className="form-control"
                                     placeholder="Keyword..."
-                                    onChange={handleSearchChange}
+                                    onChange={handleSearch}
                                 />
                             </div>
                         </div>
@@ -86,7 +108,8 @@ PostsPage.propTypes = {
     posts: PropTypes.array.isRequired,
     loadPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
-    searchByKeyword: PropTypes.func,
+    searchByKeyword: PropTypes.func.isRequired,
+    sortByTitle: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 }
 
@@ -102,7 +125,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     loadPosts,
     deletePost,
-    searchByKeyword
+    searchByKeyword,
+    sortByTitle
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsPage);

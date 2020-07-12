@@ -37,6 +37,20 @@ const searchByKeywordSuccess = (keyword) => {
     }
 }
 
+export const sortByTitle = direction => {
+    return {
+        type: types.SORT_BY_TITLE,
+        direction
+    }
+}
+
+export const sortByDate = direction => {
+    return {
+        type: types.SORT_BY_DATE,
+        direction
+    }
+}
+
 export function loadPosts() {
     return function(dispatch) {
         dispatch(beginApiCall());

@@ -17,6 +17,18 @@ export default function postReducer(state = initialState.posts, action) {
             return state.filter(post => {
                 return post.title.toLowerCase().includes(action.keyword);
             });
+        case types.SORT_BY_TITLE: {
+            const sorted = [ ...state ].sort((a, b) => {
+                const strA = a.title.toLowerCase(), strB = b.title.toLowerCase();
+
+                if(action.direction === 'asc') {
+                    return (strA > strB) ? 1 : -1;
+                } else {
+                    return (strA > strB) ? -1 : 1;
+                }
+            });
+            return sorted;
+        }
         default:
             return state;
     }
