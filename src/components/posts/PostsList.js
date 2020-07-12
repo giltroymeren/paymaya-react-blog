@@ -22,7 +22,7 @@ const PostsList = ({ posts, onDelete }) => {
                             EDIT
                         </Link>
                     </div>
-                    <div className="col-1">
+                    <div className="col-2">
                         <button
                             className="btn btn-outline-danger"
                             onClick={() => onDelete(post)}>
