@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as postApi from '../../api/postApi';
 import { beginApiCall, apiCallError } from './apiCallActions';
+import { searchByKeyword as applySearchByKeyword } from './filterActions';
 
 function loadPostsSuccess(posts) {
     return {
@@ -27,13 +28,6 @@ function deletePostOptimistic(post) {
     return {
         type: types.DELETE_POST_OPTIMISTIC,
         post
-    }
-}
-
-const searchByKeywordSuccess = (keyword) => {
-    return {
-        type: types.SEARCH_BY_KEYWORD_SUCCESS,
-        keyword
     }
 }
 
@@ -90,12 +84,17 @@ export function deletePost(post) {
     }
 }
 
-export function searchByKeyword(keyword) {
+export function performSearchByKeyword(keyword) {
     return function(dispatch) {
+        dispatch(applySearchByKeyword(keyword));
+
         if(keyword) {
-            dispatch(searchByKeywordSuccess(keyword));
+            dispatch({
+                type: types.PERFORM_SEARCH_BY_KEYWORD,
+                keyword
+            });
         } else {
-            // TODO: implement using state.appliedFilters in postReducer
+            // TODO: Fix check of entire state after erase instead of the currently displayed
             dispatch(loadPosts());
         }
     }

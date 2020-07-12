@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import {
     loadPosts,
     deletePost,
-    searchByKeyword,
+    performSearchByKeyword,
     sortByTitle,
     sortByDate
 } from '../../redux/actions/postActions';
@@ -23,7 +23,7 @@ function PostsPage({
     posts,
     loadPosts,
     deletePost,
-    searchByKeyword,
+    performSearchByKeyword,
     sortByTitle,
     sortByDate,
     loading }) {
@@ -48,7 +48,7 @@ function PostsPage({
 
     const handleSearch = (event) => {
         const keyword = event.target.value;
-        searchByKeyword(keyword);
+        performSearchByKeyword(keyword);
     }
 
     const handleSortBy = (event) => {
@@ -116,15 +116,13 @@ PostsPage.propTypes = {
     posts: PropTypes.array.isRequired,
     loadPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
-    searchByKeyword: PropTypes.func.isRequired,
+    performSearchByKeyword: PropTypes.func.isRequired,
     sortByTitle: PropTypes.func.isRequired,
     sortByDate: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 }
 
 function mapStateToProps(state) {
-    console.log(`PostsPage: mapStateToProps`)
-    console.log(state.posts)
     return {
         posts: state.posts,
         loading: (state.apiCallsInProgress > 0)
@@ -134,7 +132,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     loadPosts,
     deletePost,
-    searchByKeyword,
+    performSearchByKeyword: performSearchByKeyword,
     sortByTitle,
     sortByDate
 }
