@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -27,6 +27,8 @@ function PostsPage({
     performSortByTitle,
     performSortByDate,
     loading }) {
+    const [ isDeleteModalOpen, setIsDeleteModalOpen ] = useState(false);
+
     useEffect(() => {
         if(posts.length === 0) {
             loadPosts()
