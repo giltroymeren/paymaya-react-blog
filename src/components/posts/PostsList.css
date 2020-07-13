@@ -1,0 +1,11 @@
+div[class^="styles_kPagination"] ul[class^="styles_kPaginationListPage"] {
+    margin: 20px auto;
+}
+
+div[class^="styles_kPagination"] div[class^="styles_kPaginationListItemVertical"] .row {
+    padding: 20px 0;
+    border-top: 1px solid #DEE2E6;
+}
+div[class^="styles_kPagination"] div[class^="styles_kPaginationListItemVertical"] .row:last-child {
+    border-bottom: 1px solid #DEE2E6;
+}
