@@ -50,7 +50,7 @@ function PostsPage({
 
     const handleSearch = (event) => {
         const keyword = event.target.value;
-        performSearchByKeyword(keyword);
+        performSearchByKeyword(keyword.toLowerCase());
     }
 
     const handleSortBy = (event) => {
